@@ -10,7 +10,7 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://
 apt update && sudo apt install terraform
 
 ```
-Docker images
+Docker image:
 
 ```sh
 docker network create pg-network
@@ -24,4 +24,32 @@ docker run -it -e POSTGRES_USER="root" \
 	-p 5432:5432 \
 	--network=pg-network \
 	--name pg-database postgres:13
+
+docker container start pg-database
+```
+
+Ingesting script:
+
+``` sh
+python scripts/ingest_data.py \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --database=ny_taxy \
+    --table-name=yellow_taxy_trips \
+    --url=$URL
+```
+
+
+Access pgcli:
+```sh
+pgcli -h localhost -p 5432 -u root -d ny_taxy
+```
+
+Confirm record count:
+```sql
+SELECT COUNT(1)
+FROM yellow_taxy_trips
+
 ```

@@ -1,4 +1,5 @@
 jupyter
 pandas
+psycopg2
 sqlalchemy
 pgcli
