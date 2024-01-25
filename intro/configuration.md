@@ -80,3 +80,11 @@ docker run -it \
     --table-name=yellow_taxy_trips \
     --url=$URL
 ```
+
+Run docker compose
+
+```sh
+docker compose up -d
+
+docker compose down
+```
