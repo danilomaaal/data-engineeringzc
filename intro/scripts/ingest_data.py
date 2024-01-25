@@ -31,9 +31,8 @@ def main():
     chunk = pd.read_csv(csv_file, iterator=True, chunksize=100000)
     data = next(chunk)
     
-    data["tpep_pickup_datetime"] = pd.to_datetime(data["tpep_pickup_datetime"])
-    data["tpep_dropoff_datetime"] = pd.to_datetime(data["tpep_dropoff_datetime"])
-
+    data['tpep_pickup_datetime'] = pd.to_datetime(data['tpep_pickup_datetime'])
+    data['tpep_dropoff_datetime'] = pd.to_datetime(data['tpep_dropoff_datetime'])
     # create table
     data.head(n=0).to_sql(name=args.table_name, con=engine, if_exists='replace')
 
@@ -44,12 +43,12 @@ def main():
         start = time()
         data = next(chunk)
         
-        data["tpep_pickup_datetime"] = pd.to_datetime(data["tpep_pickup_datetime"])
-        data["tpep_dropoff_datetime"] = pd.to_datetime(data["tpep_dropoff_datetime"])
+        data['tpep_pickup_datetime'] = pd.to_datetime(data['tpep_pickup_datetime'])
+        data['tpep_dropoff_datetime'] = pd.to_datetime(data['tpep_dropoff_datetime'])
 
         data.to_sql(name=args.table_name, con=engine, if_exists='append')
         end = time()
-        print("Appended another chunk: took %.3f seconds." % (end-start))
+        print('Appended another chunk: took %.3f seconds.' % (end-start))
 
 
 

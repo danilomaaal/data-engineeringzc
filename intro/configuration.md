@@ -28,6 +28,17 @@ docker run -it -e POSTGRES_USER="root" \
 docker container start pg-database
 ```
 
+PGAdmin:
+
+```sh
+docker run -it -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+	-e PGADMIN_DEFAULT_PASSWORD="root" \
+	-p 8080:80 \
+	--network=pg-network \
+	--name pgadmin \
+	 dpage/pgadmin4 
+```
+
 Ingesting script:
 
 ``` sh
@@ -52,4 +63,20 @@ Confirm record count:
 SELECT COUNT(1)
 FROM yellow_taxy_trips
 
+```
+
+Build and run dockerized scrpt:
+```sh
+docker build -t taxy_ingets:v1 .
+
+docker run -it \
+    --network=pg-network \
+    taxy_ingets:v1 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --database=ny_taxy \
+    --table-name=yellow_taxy_trips \
+    --url=$URL
 ```

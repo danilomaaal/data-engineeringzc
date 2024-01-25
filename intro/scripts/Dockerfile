@@ -1,5 +1,6 @@
 FROM python:latest
 
+RUN apt-get install wget gzip
 RUN pip install pandas psycopg2 sqlalchemy
 
 WORKDIR app/
